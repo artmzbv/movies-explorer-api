@@ -51,12 +51,12 @@ const cardSchema = new mongoose.Schema({
 
   thumbnail: {
     type: String,
-      validate: {
-        validator(link) {
-          return validator.isURL(link);
-        },
-        message: 'Это не ссылка',
+    validate: {
+      validator(link) {
+        return validator.isURL(link);
       },
+      message: 'Это не ссылка',
+    },
     required: true,
   },
 

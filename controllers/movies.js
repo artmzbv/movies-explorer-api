@@ -14,7 +14,7 @@ module.exports.createMovies = (req, res, next) => {
         next(err);
       }
     });
-}
+};
 
 module.exports.deleteMovieById = (req, res, next) => {
   Movie.findById(req.params.movieId)
@@ -26,7 +26,7 @@ module.exports.deleteMovieById = (req, res, next) => {
             res.send({ message: `ошибка ${removedMovie.nameRU}` });
           });
       }
-      return next(new ForbiddenError(DELETE_MOVIE_ERR_MESSAGE));
+      return next(new ForbiddenError(constants.messages.validationError));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -39,6 +39,6 @@ module.exports.deleteMovieById = (req, res, next) => {
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({})
-    .then((cards) => res.send({ data: movie }))
+    .then((movie) => res.send({ data: movie }))
     .catch((err) => next(err));
 };

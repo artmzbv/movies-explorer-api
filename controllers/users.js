@@ -8,7 +8,7 @@ const ConflictError = require('../utils/errors/ConflictError');
 const UnauthorizedError = require('../utils/errors/UnauthorizedError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
-//ok
+
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   User.findUserByCredentials(email, password)
@@ -18,7 +18,7 @@ module.exports.login = (req, res, next) => {
     })
     .catch(() => next(new UnauthorizedError(constants.messages.validationError)));
 };
-//ok
+
 module.exports.postUser = (req, res, next) => {
   const {
     name, email, password,
@@ -44,7 +44,7 @@ module.exports.postUser = (req, res, next) => {
       }
     });
 };
-//ok
+
 module.exports.getProfile = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
@@ -58,7 +58,7 @@ module.exports.getProfile = (req, res, next) => {
     })
     .catch(next);
 };
-//ok
+
 module.exports.updateProfile = (req, res, next) => {
   const { name, email } = req.body;
 
