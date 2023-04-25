@@ -18,19 +18,19 @@ module.exports.createMovies = (req, res, next) => {
 
 module.exports.deleteMovieById = (req, res, next) => {
   Movie.findById(req.params.movieId)
-    .orFail(new NotFoundError('ошибка'))
+    .orFail(new NotFoundError(constants.messages.movieError))
     .then((movie) => {
       if (req.user._id.toString() === movie.owner.toString()) {
         return movie.remove()
           .then((removedMovie) => {
-            res.send({ message: `ошибка ${removedMovie.nameRU}` });
+            res.send({ message: `${constants.messages.deletedMovie} ${removedMovie.nameRU}` });
           });
       }
       return next(new ForbiddenError(constants.messages.validationError));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('ошибка'));
+        next(new ValidationError(constants.messages.movieDataError));
       } else {
         next(err);
       }

@@ -76,9 +76,11 @@ module.exports.updateProfile = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === constants.names.validationError) {
-        next(new ValidationError(constants.messages.dislikesError));
-      } else {
-        next(err);
+        next(new ValidationError(constants.messages.userDataError));
+        return;
+      }
+      if (err.code === 11000) {
+        next(new ConflictError(constants.messages.conflictError));
       }
     });
 };
