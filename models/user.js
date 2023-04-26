@@ -11,10 +11,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       validate: {
-          validator(email) {
-            return validator.isEmail(email);
-          },
-          message: 'Email введен неправильно',
+        validator(email) {
+          return validator.isEmail(email);
+        },
+        message: 'Email введен неправильно',
       },
     },
 
@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema(
   },
 );
 
+// eslint-disable-next-line func-names
 userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email })
     .select('+password')

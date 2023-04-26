@@ -2,7 +2,7 @@ const router = require('express').Router();
 const {
   updateProfile, getProfile,
 } = require('../controllers/users');
-const {validatedProfile } = require('../utils/validation');
+const { validatedProfile } = require('../utils/validation');
 
 router.get('/users/me', getProfile);
 
