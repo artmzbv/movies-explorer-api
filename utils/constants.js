@@ -17,6 +17,7 @@ const constants = {
     userDataError: 'Переданы некорректные данные при пользователя',
     conflictError: 'Такой пользователь уже есть',
     forbiddenError: 'Нет прав для удаления',
+    emailError: 'Email введен неправильно',
   },
 };
 
