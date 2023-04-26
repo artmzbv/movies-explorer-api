@@ -5,7 +5,6 @@ const constants = require('../utils/constants');
 const NotFoundError = require('../utils/errors/NotFoundError');
 const ValidationError = require('../utils/errors/ValidationError');
 const ConflictError = require('../utils/errors/ConflictError');
-const UnauthorizedError = require('../utils/errors/UnauthorizedError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -16,7 +15,7 @@ module.exports.login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'secret-key', { expiresIn: '7d' });
       res.send({ token });
     })
-    .catch(() => next(new UnauthorizedError(constants.messages.validationError)));
+    .catch(next);
 };
 
 module.exports.postUser = (req, res, next) => {
@@ -35,7 +34,7 @@ module.exports.postUser = (req, res, next) => {
       email: user.email,
     }))
     .catch((err) => {
-      if (err.code === 11000) {
+      if (err.code === constants.codes.wrongCode) {
         next(new ConflictError(constants.messages.conflictError));
       } else if (err.name === constants.names.validationError) {
         next(new ValidationError(constants.messages.validationError));
@@ -79,7 +78,7 @@ module.exports.updateProfile = (req, res, next) => {
         next(new ValidationError(constants.messages.userDataError));
         return;
       }
-      if (err.code === 11000) {
+      if (err.code === constants.codes.wrongCode) {
         next(new ConflictError(constants.messages.conflictError));
       }
     });

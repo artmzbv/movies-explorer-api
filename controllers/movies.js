@@ -26,10 +26,10 @@ module.exports.deleteMovieById = (req, res, next) => {
             res.send({ message: `${constants.messages.deletedMovie} ${removedMovie.nameRU}` });
           });
       }
-      return next(new ForbiddenError(constants.messages.validationError));
+      return next(new ForbiddenError(constants.messages.movieRightError));
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
+      if (err.name === constants.names.castError) {
         next(new ValidationError(constants.messages.movieDataError));
       } else {
         next(err);
