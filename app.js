@@ -12,9 +12,9 @@ const limiter = require('./middlewares/limiter');
 
 const app = express();
 
-const { PORT = 3000 } = process.env;
+const { mongoDatabase = 'mongodb://127.0.0.1:27017/bitfilmsdb', PORT = 3000 } = process.env;
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
+mongoose.connect(mongoDatabase);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
