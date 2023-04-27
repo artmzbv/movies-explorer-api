@@ -32,6 +32,7 @@ module.exports.postUser = (req, res, next) => {
     .then((user) => res.send({
       name: user.name,
       email: user.email,
+      _id: user._id,
     }))
     .catch((err) => {
       if (err.code === constants.codes.wrongCode) {
