@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -9,10 +7,9 @@ const cors = require('./middlewares/cors');
 const errorHandler = require('./utils/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./middlewares/limiter');
+const { mongoDatabase, PORT } = require('./utils/config');
 
 const app = express();
-
-const { mongoDatabase = 'mongodb://127.0.0.1:27017/bitfilmsdb', PORT = 3000 } = process.env;
 
 mongoose.connect(mongoDatabase);
 
