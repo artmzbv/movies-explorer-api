@@ -17,7 +17,7 @@ module.exports.createMovies = (req, res, next) => {
 };
 
 module.exports.deleteMovieById = (req, res, next) => {
-  Movie.findById(req.params.movieId)
+  Movie.findById(req.params.movieid)
     .orFail(new NotFoundError(constants.messages.movieError))
     .then((movie) => {
       if (req.user._id.toString() === movie.owner.toString()) {
