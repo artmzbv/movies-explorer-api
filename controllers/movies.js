@@ -5,7 +5,8 @@ const ValidationError = require('../utils/errors/ValidationError');
 const ForbiddenError = require('../utils/errors/ForbiddenError');
 
 module.exports.createMovies = (req, res, next) => {
-  Movie.create({ owner: req.user._id, ...req.body })
+  const owner = req.user._id;
+  Movie.create({ owner, ...req.body })
     .then((movie) => res.send({ data: movie }))
     .catch((err) => {
       if (err.name === constants.names.validationError) {
@@ -17,7 +18,7 @@ module.exports.createMovies = (req, res, next) => {
 };
 
 module.exports.deleteMovieById = (req, res, next) => {
-  Movie.findById(req.params.movieid)
+  Movie.findById({ _id: req.params._id })
     .orFail(new NotFoundError(constants.messages.movieError))
     .then((movie) => {
       if (req.user._id.toString() === movie.owner.toString()) {
