@@ -1,8 +1,8 @@
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
-  // 'http://localhost:3000',
-  // 'http://artmzbv.diplom.nomoredomains.monster',
-  // 'https://artmzbv.diplom.nomoredomains.monster',
+  'http://localhost:3000',
+  'http://artmzbv.frontend.diplom.nomoredomains.monster/',
+  'https://artmzbv.frontend.diplom.nomoredomains.monster/',
 ];
 
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
